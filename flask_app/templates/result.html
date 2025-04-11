@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis Result</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <h1>Analysis Result</h1>
+    <p>Product Name: {{ product_name }}</p>
+    <p>Amazon Reviews Sentiment: {{ amazon_sentiment }}</p>
+    <p>Percentage of Positive Reviews: {{ positive_percentage }}%</p>
+    <p>Percentage of Negative Reviews: {{ negative_percentage }}%</p>
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script>
+      var positivePercentage = JSON.parse(
+        "{{ positive_percentage_js | tojson | safe }}"
+      );
+      var negativePercentage = JSON.parse(
+        "{{ negative_percentage_js | tojson | safe }}"
+      );
+
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var myChart = new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Positive", "Negative"],
+          datasets: [
+            {
+              label: "Sentiment Analysis",
+              data: [positivePercentage, negativePercentage],
+              backgroundColor: [
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(255, 99, 132, 0.2)",
+              ],
+              borderColor: ["rgba(75, 192, 192, 1)", "rgba(255, 99, 132, 1)"],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

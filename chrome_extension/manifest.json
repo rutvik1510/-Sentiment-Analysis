@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Sentiment Analysis Extension",
+  "version": "1.0",
+  "description": "Scrapes the URL of the current webpage, sends it to a Flask server for sentiment analysis, and displays the result as a pie chart.",
+  "permissions": ["activeTab", "tabs", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

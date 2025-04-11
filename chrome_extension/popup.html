@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentiment Analysis</title>
+    <script src="libs/d3.v7.min.js"></script>
+    <script src="libs/d3.layout.cloud.min.js"></script>
+    <script src="libs/Chart.min.js"></script>
+    <script src="popup.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+      }
+      h1 {
+        font-size: 24px;
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 12px 25px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: white;
+        margin: 15px auto;
+        display: block;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #loadingContainer {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+      }
+      #loading {
+        font-size: 16px;
+        text-align: center;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border-left-color: #09f;
+        animation: spin 1s ease infinite;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      #noProductFound {
+        display: none;
+        font-size: 16px;
+        margin-top: 20px;
+        color: red;
+        text-align: center;
+      }
+      #chartContainer,
+      #wordCloudContainer {
+        width: 100%;
+        max-width: 600px;
+        margin: 30px auto;
+        position: relative;
+      }
+      canvas {
+        width: 600px !important;
+        height: 450px !important;
+      }
+      #wordCloudContainer img {
+        width: 100%;
+        height: auto;
+      }
+      #productName {
+        font-size: 18px;
+        margin: 20px auto;
+        text-align: center;
+        color: #333;
+        padding: 15px;
+        max-width: 600px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Product Review Analyzer</h1>
+    <button id="scrapeBtn">Analyse Reviews</button>
+    <div id="loadingContainer">
+      <div id="loading">
+        <div class="spinner"></div>
+        Fetching data, please wait...
+      </div>
+    </div>
+    <div id="noProductFound">
+      No product/Reviews found. Please check the URL and Reviews and try again.
+    </div>
+    <div id="productName"></div>
+    <div id="chartContainer">
+      <canvas id="sentimentChart"></canvas>
+    </div>
+    <button id="wordCloudBtn">Show Word Cloud</button>
+    <div id="wordCloudContainer"></div>
+  </body>
+</html>
